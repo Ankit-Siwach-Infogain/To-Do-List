@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ankit-To-Do-List</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="side-quote left-quote" aria-live="polite" aria-label="Motivational Quote Left">
+    <span class="quote-text">"Success is the sum of small efforts repeated day in and day out."</span>
+  </div>
+  <div class="side-quote right-quote" aria-live="polite" aria-label="Motivational Quote Right">
+    <span class="quote-text">"The secret of getting ahead is getting started."</span>
+  </div>
+  <main class="container">
+    <h1>Ankit-To-Do-List</h1>
+    <form id="todo-form" aria-label="Add a new task">
+      <input type="text" id="task-input" placeholder="Add a new task..." aria-label="Task" required autocomplete="off">
+      <input type="date" id="date-input" aria-label="Due Date">
+      <input type="time" id="time-input" aria-label="Due Time">
+      <select id="priority-input" aria-label="Priority">
+        <option value="low">Low</option>
+        <option value="medium" selected>Medium</option>
+        <option value="high">High</option>
+      </select>
+      <div class="add-btn-container">
+        <button type="submit" id="add-btn" aria-label="Add Task">Add</button>
+      </div>
+    </form>
+    <div class="filters">
+      <button data-filter="all" class="filter-btn active">All</button>
+      <button data-filter="active" class="filter-btn">Active</button>
+      <button data-filter="completed" class="filter-btn">Completed</button>
+    </div>
+    <div class="progress-bar-container">
+      <div id="progress-bar"></div>
+      <span id="progress-label"></span>
+    </div>
+    <ul id="task-list" aria-label="Task List"></ul>
+    <button id="undo-btn" style="display:none;">Undo Delete</button>
+    <div class="mode-toggle">
+      <label for="mode-switch">🌙/☀️</label>
+      <input type="checkbox" id="mode-switch" aria-label="Toggle Dark/Light Mode">
+    </div>
+  </main>
+  <script src="app.js"></script>
+  <script>
+    // Animate quotes with fade and slide
+    const quotes = [
+      "Success is the sum of small efforts repeated day in and day out.",
+      "The secret of getting ahead is getting started.",
+      "Don't watch the clock; do what it does. Keep going.",
+      "Great things never come from comfort zones.",
+      "Dream it. Wish it. Do it.",
+      "Push yourself, because no one else is going to do it for you.",
+      "Stay positive, work hard, make it happen."
+    ];
+    function animateQuotes() {
+      let idx = 0;
+      let left = document.querySelector('.left-quote .quote-text');
+      let right = document.querySelector('.right-quote .quote-text');
+      setInterval(() => {
+        left.textContent = quotes[idx % quotes.length];
+        right.textContent = quotes[(idx + 1) % quotes.length];
+        left.classList.remove('animate');
+        right.classList.remove('animate');
+        void left.offsetWidth; // trigger reflow
+        void right.offsetWidth;
+        left.classList.add('animate');
+        right.classList.add('animate');
+        idx++;
+      }, 4000);
+    }
+    animateQuotes();
+  </script>
+</body>
+</html>
